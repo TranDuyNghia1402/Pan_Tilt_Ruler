@@ -25,7 +25,6 @@ void LvBaseObject::create()
         mLvObj = lv_obj_create(mParent->getLvObject());
     else
         mLvObj = lv_obj_create(lv_screen_active());
-    this->setSize(mWidth, mHeight);
 }
 
 void LvBaseObject::destroy()
@@ -609,6 +608,66 @@ void LvBaseObject::setPadAll(const int32_t &value, const LvSelector &selector)
         return;
     }
     lv_obj_set_style_pad_all(mLvObj, value, selector);
+}
+
+int32_t LvBaseObject::getScrollX() const
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] object was not created!";
+        return 0;
+    }
+    return lv_obj_get_scroll_x(mLvObj);
+}
+
+int32_t LvBaseObject::getScrollY() const
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] object was not created!";
+        return 0;
+    }
+    return lv_obj_get_scroll_y(mLvObj);
+}
+
+int32_t LvBaseObject::getScrollTop() const
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] object was not created!";
+        return 0;
+    }
+    return lv_obj_get_scroll_top(mLvObj);
+}
+
+int32_t LvBaseObject::getScrollBottom() const
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] object was not created!";
+        return 0;
+    }
+    return lv_obj_get_scroll_bottom(mLvObj);
+}
+
+int32_t LvBaseObject::getScrollLeft() const
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] object was not created!";
+        return 0;
+    }
+    return lv_obj_get_scroll_left(mLvObj);
+}
+
+int32_t LvBaseObject::getScrollRight() const
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] object was not created!";
+        return 0;
+    }
+    return lv_obj_get_scroll_right(mLvObj);
 }
 
 LvObj *LvBaseObject::getLvObject() const

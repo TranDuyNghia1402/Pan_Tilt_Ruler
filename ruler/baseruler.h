@@ -17,7 +17,7 @@ public:
      * @brief setValue: set value to pan/tilt ruler
      * @param value
      */
-    virtual void setValue(const int32_t &value) = 0;
+    virtual void setValue(const double &value) = 0;
 
     /**
      * @brief setRange: set the minimum and the maximum of the pan/tilt ruler

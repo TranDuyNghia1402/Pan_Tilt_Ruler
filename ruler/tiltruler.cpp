@@ -5,58 +5,61 @@ TiltRuler::TiltRuler(LvBaseObject *parent, const int32_t &width, const int32_t &
 {
 
     static LvObjectStyle containerStyle;
-//    containerStyle.setSize(mWidth, mHeight);
     containerStyle.setRadius(0);
     containerStyle.setBorderWidth(0);
+    containerStyle.setSize(mWidth, mHeight);
+    containerStyle.setPadAll(0);
 
     mContainer = new LvBaseObject(mParent);
     mContainer->create();
+    mContainer->addStyle(containerStyle);
     mContainer->setScrollBarMode(ScrollBarMode::OFF);
-    mContainer->setSize(mWidth, mHeight);
     mContainer->setBgOpa(LV_OPA_40);
     mContainer->setBgColor(lv_color_hex(0x181818));
-    mContainer->addStyle(containerStyle);
 
     mMoveSection = new LvBaseObject(mContainer);
     mMoveSection->create();
+    mMoveSection->addStyle(containerStyle);
     mMoveSection->setScrollBarMode(ScrollBarMode::OFF);
-    mMoveSection->setSize(mWidth, mHeight);
     mMoveSection->setBgOpa(LV_OPA_0);
     mMoveSection->center();
-    mMoveSection->addStyle(containerStyle);
-    mMoveSection->setScrollDir(ScrollDirection::HOR);
+    mMoveSection->setScrollDir(ScrollDirection::VER);
 
     static LvObjectStyle scaleTickStyle;
-    static LvObjectStyle scaleMainPartStyle2;
+    static LvObjectStyle scaleMainStyle;
+    scaleTickStyle.setTextColor(lv_color_hex(0x00E8E8));
     scaleTickStyle.setLineColor(lv_color_hex(0x00E8E8));
-    scaleTickStyle.setWidth(100U);
-    scaleMainPartStyle2.setLineOpa(LV_OPA_0);
+    scaleMainStyle.setLineOpa(LV_OPA_0);
 
     mScaler = new LvScale(mMoveSection);
     mScaler->create();
+    mScaler->setSize(mWidth - 10, mScaleHeight);
+    mScaler->setRange(mMin, mMax);
     mScaler->addStyle(scaleTickStyle, LV_PART_ITEMS);
     mScaler->addStyle(scaleTickStyle, LV_PART_INDICATOR);
-    mScaler->addStyle(scaleMainPartStyle2, LV_PART_MAIN);
-    mScaler->setSize(mWidth - 10, mHeight * 2);
+    mScaler->addStyle(scaleMainStyle, LV_PART_MAIN);
     mScaler->setMode(LV_SCALE_MODE_VERTICAL_LEFT);
-    mScaler->align(LV_ALIGN_CENTER, -7, 0);
-    mScaler->setTotalTickCount((mMax - mMin) / 2);
-    mScaler->setMajorTickEvery(1);
-    mScaler->hideLabel();
-    mScaler->setMajorTickLength(10);
+    mScaler->align(LV_ALIGN_TOP_MID, 0, 0);
+    mScaler->setMajorTickEvery(10);
+    mScaler->setMajorTickLength(20);
+    mScaler->setMinorTickLength(10);
+    // mScaler->hideLabel();
+    mScaler->setRange(mScaleDownLimit, mScaleUpLimit);
+    mScaler->setTotalTickCount(qAbs(mScaleDownLimit) + qAbs(mScaleUpLimit) + 1);
+    // mScaler->setMinorTickWidth(1);
+    // mScaler->setMajorTickWidth(1);
 
     mValuePointer = new LvBaseObject(mContainer);
     mValuePointer->create();
     mValuePointer->setSize(mWidth, 20);
     mValuePointer->setScrollBarMode(ScrollBarMode::OFF);
-    mValuePointer->center();
+    mValuePointer->align(LV_ALIGN_CENTER, 0, 0);
     mValuePointer->setBorderSide(LV_BORDER_SIDE_LEFT);
     mValuePointer->setBorderWidth(2);
     mValuePointer->setBorderColor(lv_color_hex(0x00E8E8));
     mValuePointer->setBgColor(lv_color_hex(0x181818));
     mValuePointer->setBgOpa(LV_OPA_100);
-    mValuePointer->setRadius(0);
-    mValuePointer->setPadAll(0);
+    mValuePointer->addStyle(containerStyle);
 
     static LvObjectStyle labelStyle;
     labelStyle.setTextColor(lv_color_hex(0x00E8E8));
@@ -70,10 +73,18 @@ TiltRuler::TiltRuler(LvBaseObject *parent, const int32_t &width, const int32_t &
     mValueLabel->create();
     mValueLabel->align(LV_ALIGN_LEFT_MID, 5, 0);
     mValueLabel->addStyle(labelStyle);
+
+    mMoveSection->scrollToY(mCurrentScalePos, LV_ANIM_OFF); // move to root
 }
 
-void TiltRuler::setValue(const int32_t &value)
+void TiltRuler::setValue(const double &value)
 {
-    mMoveSection->scrollToY(value, LV_ANIM_ON);
+    mCurrentScalePos += 10 * value;
+    if (mCurrentScalePos >= 3600)
+        mCurrentScalePos = 0;
+    mMoveSection->scrollToY(mCurrentScalePos, LV_ANIM_ON);
     mValueLabel->setText(QString::number(value));
+    // qDebug() << "get scroll bottom:" << mMoveSection->getScrollBottom();
+    // qDebug() << "get scroll top:" << mMoveSection->getScrollTop();
+    // qDebug() << "get scroll y:" << mMoveSection->getScrollY();
 }

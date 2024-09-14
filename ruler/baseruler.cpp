@@ -5,28 +5,30 @@ BaseRuler::BaseRuler(LvBaseObject *parent, const int32_t &width, const int32_t &
 
 void BaseRuler::setRange(const int32_t &min, const int32_t &max)
 {
-    mScaler->setRange(min, max);
     mMin = min;
     mMax = max;
 }
 
 void BaseRuler::setSize(const int32_t &width, const int32_t &height)
 {
-    mContainer->setSize(width, height);
     mWidth = width;
     mHeight = height;
+    mContainer->setSize(mWidth, mHeight);
+    mMoveSection->setSize(mWidth, mHeight);
 }
 
 void BaseRuler::setWidth(const int32_t &width)
 {
-    mContainer->setWidth(width);
     mWidth = width;
+    mContainer->setWidth(mWidth);
+    mMoveSection->setWidth(mWidth);
 }
 
 void BaseRuler::setHeight(const int32_t &height)
 {
-    mContainer->setHeight(height);
     mHeight = height;
+    mContainer->setHeight(mHeight);
+    mMoveSection->setHeight(mHeight);
 }
 
 void BaseRuler::setAlign(const LvAlign &align)

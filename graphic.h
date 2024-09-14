@@ -2,6 +2,7 @@
 #define GRAPHIC_H
 
 #include <QObject>
+#include <QThread>
 #include <QTimer>
 #include "lvglpp/core/lv_conf.h"
 #include "lvglpp/core/lvgl/src/drivers/sdl/lv_sdl_window.h"

@@ -118,6 +118,26 @@ void LvScale::setMajorTickLength(const int32_t &len)
     lv_obj_set_style_length(mLvObj, len, LV_PART_INDICATOR);
 }
 
+void LvScale::setMajorTickWidth(const int32_t &width)
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] scale was not created!";
+        return;
+    }
+    lv_obj_set_style_line_width(mLvObj, width, LV_PART_INDICATOR);
+}
+
+void LvScale::setMinorTickWidth(const int32_t &width)
+{
+    if (!isCreated || !mLvObj)
+    {
+        qDebug() << "[Warning] scale was not created!";
+        return;
+    }
+    lv_obj_set_style_line_width(mLvObj, width, LV_PART_ITEMS);
+}
+
 void LvScale::setAngleRange(const uint32_t &angleRange)
 {
     if (!isCreated || !mLvObj)

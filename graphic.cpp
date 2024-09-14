@@ -1,4 +1,4 @@
-#include "graphic.h"
+ #include "graphic.h"
 #include <QDebug>
 
 #define BG_COLOR    0x181818
@@ -25,8 +25,6 @@ Graphic::Graphic()
     halInit();
 
     csdspSimulator();
-
-    autoPressTimer->start(200);
 }
 
 void Graphic::halInit()
@@ -99,7 +97,9 @@ void Graphic::csdspSimulator()
 
     tiltRuler = new TiltRuler(LvCurrentActScreen::getActiveScreen());
     tiltRuler->align(LV_ALIGN_LEFT_MID, 0, 0);
-    tiltRuler->setRange(-20, 60);
+    tiltRuler->setRange(-120, 120);
+
+    autoPressTimer->start(1000);
 }
 
 void Graphic::onLvTickHandler()
@@ -114,7 +114,7 @@ void Graphic::onLvTimerHandler()
 
 void Graphic::onAutoPressTimerHandler()
 {
-    static int i = -180;
-    i += 50;
+    double i = 0;
+    i += 10;
     tiltRuler->setValue(i);
 }
