@@ -2,7 +2,7 @@
 #define GRAPHIC_H
 
 #include <QObject>
-#include <QThread>
+#include <QRandomGenerator>
 #include <QTimer>
 #include "lvglpp/core/lv_conf.h"
 #include "lvglpp/core/lvgl/src/drivers/sdl/lv_sdl_window.h"
@@ -44,13 +44,13 @@ private:
     LvImage *backGround = nullptr;
     TiltRuler *tiltRuler = nullptr;
 
-    QTimer *autoPressTimer = nullptr;
+    QTimer *testTimer = nullptr;
 
 public slots:
     void onLvTickHandler();
     void onLvTimerHandler();
 
-    void onAutoPressTimerHandler();
+    void onTestTimerHandler();
 };
 
 #endif // GRAPHIC_H

@@ -9,15 +9,15 @@ Graphic::Graphic()
     lvTickTimer = new QTimer();
     lvTimeTimer = new QTimer();
 
-    autoPressTimer = new QTimer();
+    testTimer = new QTimer();
 
     lvTickTimer->setSingleShot(false);
     lvTimeTimer->setSingleShot(false);
-    autoPressTimer->setSingleShot(false);
+    testTimer->setSingleShot(false);
 
     connect(lvTickTimer, &QTimer::timeout, this, &Graphic::onLvTickHandler);
     connect(lvTimeTimer, &QTimer::timeout, this, &Graphic::onLvTimerHandler);
-    connect(autoPressTimer, &QTimer::timeout, this, &Graphic::onAutoPressTimerHandler);
+    connect(testTimer, &QTimer::timeout, this, &Graphic::onTestTimerHandler);
 
     lvTickTimer->start(5);
     lvTimeTimer->start(5);
@@ -99,7 +99,7 @@ void Graphic::csdspSimulator()
     tiltRuler->align(LV_ALIGN_LEFT_MID, 0, 0);
     tiltRuler->setRange(-120, 120);
 
-    autoPressTimer->start(1000);
+    testTimer->start(1500);
 }
 
 void Graphic::onLvTickHandler()
@@ -112,9 +112,8 @@ void Graphic::onLvTimerHandler()
     lv_timer_handler();
 }
 
-void Graphic::onAutoPressTimerHandler()
+void Graphic::onTestTimerHandler()
 {
-    double i = 0;
-    i += 10;
+    double i = QRandomGenerator::global()->bounded(-181, 181);
     tiltRuler->setValue(i);
 }

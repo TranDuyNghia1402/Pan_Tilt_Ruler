@@ -43,11 +43,8 @@ TiltRuler::TiltRuler(LvBaseObject *parent, const int32_t &width, const int32_t &
     mScaler->setMajorTickEvery(10);
     mScaler->setMajorTickLength(20);
     mScaler->setMinorTickLength(10);
-    // mScaler->hideLabel();
     mScaler->setRange(mScaleDownLimit, mScaleUpLimit);
     mScaler->setTotalTickCount(qAbs(mScaleDownLimit) + qAbs(mScaleUpLimit) + 1);
-    // mScaler->setMinorTickWidth(1);
-    // mScaler->setMajorTickWidth(1);
 
     mValuePointer = new LvBaseObject(mContainer);
     mValuePointer->create();
@@ -79,12 +76,11 @@ TiltRuler::TiltRuler(LvBaseObject *parent, const int32_t &width, const int32_t &
 
 void TiltRuler::setValue(const double &value)
 {
-    mCurrentScalePos += 10 * value;
+    mCurrentScalePos = 1800 - 10 * value;
     if (mCurrentScalePos >= 3600)
         mCurrentScalePos = 0;
+    else if (mCurrentScalePos <= 0)
+        mCurrentScalePos = 3600;
     mMoveSection->scrollToY(mCurrentScalePos, LV_ANIM_ON);
     mValueLabel->setText(QString::number(value));
-    // qDebug() << "get scroll bottom:" << mMoveSection->getScrollBottom();
-    // qDebug() << "get scroll top:" << mMoveSection->getScrollTop();
-    // qDebug() << "get scroll y:" << mMoveSection->getScrollY();
 }

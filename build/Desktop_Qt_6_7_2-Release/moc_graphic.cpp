@@ -39,7 +39,7 @@ constexpr auto qt_meta_stringdata_CLASSGraphicENDCLASS = QtMocHelpers::stringDat
     "onLvTickHandler",
     "",
     "onLvTimerHandler",
-    "onAutoPressTimerHandler"
+    "onTestTimerHandler"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -85,7 +85,7 @@ Q_CONSTINIT const QMetaObject Graphic::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'onLvTimerHandler'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onAutoPressTimerHandler'
+        // method 'onTestTimerHandler'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -99,7 +99,7 @@ void Graphic::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->onLvTickHandler(); break;
         case 1: _t->onLvTimerHandler(); break;
-        case 2: _t->onAutoPressTimerHandler(); break;
+        case 2: _t->onTestTimerHandler(); break;
         default: ;
         }
     }
