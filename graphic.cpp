@@ -99,7 +99,9 @@ void Graphic::csdspSimulator()
     tiltRuler->align(LV_ALIGN_LEFT_MID, 0, 0);
     tiltRuler->setRange(-120, 120);
 
-    testTimer->start(1500);
+
+
+    testTimer->start(200);
 }
 
 void Graphic::onLvTickHandler()
@@ -114,6 +116,6 @@ void Graphic::onLvTimerHandler()
 
 void Graphic::onTestTimerHandler()
 {
-    double i = QRandomGenerator::global()->bounded(-181, 181);
+    double i = QRandomGenerator::global()->bounded(-90, 90);
     tiltRuler->setValue(i);
 }

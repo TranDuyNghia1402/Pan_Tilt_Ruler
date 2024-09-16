@@ -24,6 +24,7 @@
 #include "lvglpp/lvstyle.h"
 
 #include "ruler/tiltruler.h"
+#include "ruler/panruler.h"
 
 #define MONITOR_WIDTH   1280
 #define MONITOR_HEIGHT  720
@@ -43,6 +44,7 @@ private:
 
     LvImage *backGround = nullptr;
     TiltRuler *tiltRuler = nullptr;
+    PanRuler *panRuler = nullptr;
 
     QTimer *testTimer = nullptr;
 
