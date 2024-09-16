@@ -99,9 +99,11 @@ void Graphic::csdspSimulator()
     tiltRuler->align(LV_ALIGN_LEFT_MID, 0, 0);
     tiltRuler->setRange(-120, 120);
 
+    panRuler = new PanRuler(LvCurrentActScreen::getActiveScreen());
+    panRuler->align(LV_ALIGN_BOTTOM_MID, 0, 0);
+    panRuler->setRange(-180, 180);
 
-
-    testTimer->start(200);
+    testTimer->start(1000);
 }
 
 void Graphic::onLvTickHandler()
